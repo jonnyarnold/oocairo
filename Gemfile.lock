@@ -10,6 +10,9 @@ GEM
   specs:
     cairo (1.12.4)
       pkg-config
+    metaclass (0.0.1)
+    mocha (0.13.3)
+      metaclass (~> 0.0.1)
     pkg-config (1.1.4)
     rake (10.0.3)
 
@@ -18,5 +21,6 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
+  mocha
   oocairo!
   rake

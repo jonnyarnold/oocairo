@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("cairo")
   s.add_development_dependency("rake")
   s.add_development_dependency("bundler")
+  s.add_development_dependency("mocha")
 end
