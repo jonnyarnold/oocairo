@@ -5,6 +5,7 @@ module Cairo
     attr_accessor :stroke_color, :stroke_width, :fill_color
 
     # Creates a Rectangle
+    # [size] A [width, height] pair.
     def initialize(size)
       Cairo.validate_size size
       @width , @height = size[0], size[1]
@@ -14,7 +15,9 @@ module Cairo
       @fill_color = nil
     end
 
-    # Draws itself on the given context
+    # Draws itself on the given context.
+    # [context] The Cairo::Context to draw onto.
+    # [pos] The top-left corner of the Rectangle.
     def draw_to(context, pos)
       draw_fill(context, pos)
       draw_stroke(context, pos)

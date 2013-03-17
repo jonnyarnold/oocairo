@@ -22,15 +22,23 @@ module Cairo
       @context = Cairo::Context.new @surface
     end
 
+    # Draws the given object to the internal Cairo context.
+    # [obj] The object to draw. Must respond to draw_to(context, pos)
+    # [pos] The anchor coordinate to place the object on the canvas. e.g. for a Rectangle, this is the top-left corner.
     def draw(obj, pos)
       obj.draw_to @context, pos
     end
 
+    # Sets the background color of the canvas to the given color.
+    # [color] The color (as long as Cairo::Context.set_source_color can parse it, it's valid; try :white or Cairo::Color)
+    # Note that this method floods the canvas with the chosen color when it is called, potentially overwriting objects already written to the canvas.
     def bg_color=(color)
       @context.set_source_color color
       @context.paint
     end
 
+    # Saves the current Canvas as an SVG.
+    # [filename] The filename to save to.
     def save_svg(filename)
       @surface.finish
       FileUtils.cp @workingFile.path, filename
