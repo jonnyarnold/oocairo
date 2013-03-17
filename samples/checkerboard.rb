@@ -6,9 +6,10 @@ require 'oocairo'
 class Checkerboard
 
   # Creates the Checkerboard
-  def initialize(square_size = 10, border = 10)
+  def initialize(square_size: 10, border: 10, labels: false)
     @square_size = square_size
     @border = border
+    @show_labels = labels
   end
 
   # Draws the checkerboard to the given context at the given position.
@@ -17,6 +18,8 @@ class Checkerboard
     
     grid_top_left = [pos[0] + @border, pos[1] + @border]
     draw_grid(context, grid_top_left)
+
+    draw_labels(context, pos) if @show_labels
   end
 
   private
@@ -56,9 +59,42 @@ class Checkerboard
     sq.fill_color = color
     sq
   end
+
+  # Draws labels for the checkerboard against the border.
+  # As with chess, the rows are numbered and the columns are given letters.
+  def draw_labels(context, pos)
+    draw_column_labels(context, pos)
+    draw_row_labels(context, pos)
+  end
+
+  # Draws column labels in the border of the checkerboard
+  def draw_column_labels(context, pos)
+    y_pos = @border
+    context.set_font_size @border
+    labels = %w(a b c d e f g h)
+    (0..7).each do |x_index|
+      x_pos = pos[0] + @border + (x_index * @square_size)
+      context.move_to(x_pos, y_pos)
+      context.text_path labels[x_index]
+      context.fill
+    end
+  end
+
+  # Draws row labels in the border of the checkerboard
+  def draw_row_labels(context, pos)
+    x_pos = 0
+    context.set_font_size @border
+    labels = %w(1 2 3 4 5 6 7 8)
+    (0..7).each do |y_index|
+      y_pos = pos[1] + @border + ((y_index + 1) * @square_size) # +1 to ensure the baseline is at the bottom of the relevant square
+      context.move_to(x_pos, y_pos)
+      context.text_path labels[y_index]
+      context.fill
+    end
+  end
 end
 
 canvas = Cairo::Canvas.new [100, 100]
-board = Checkerboard.new
+board = Checkerboard.new(labels: true)
 canvas.draw board, [0,0]
 canvas.save_svg "example.svg"
