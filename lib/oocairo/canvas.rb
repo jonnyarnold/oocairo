@@ -10,7 +10,7 @@ module Cairo
   # Canvas allows you to draw a graphic -before- you specify its 
   # destination.
   class Canvas
-
+    
     # Create a Canvas
     # [size] An [x,y] array. x and y cannot be negative.
     def initialize(size)

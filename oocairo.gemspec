@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.licenses = ["Ruby's"]
   s.require_paths = ["lib"]
 
-  s.files = ["Gemfile", "Rakefile"]
+  s.files = ["Gemfile", "rakefile"]
   s.files += Dir.glob("{lib,samples}/**/*.rb")
   s.test_files = Dir.glob("test/**/*.rb")
 
