@@ -1,4 +1,5 @@
 require 'test/unit'
+require 'mocha/setup'
 require './lib/oocairo'
 
 class SpyObject
@@ -19,7 +20,6 @@ class TestCanvas < Test::Unit::TestCase
 
   def setup
     @canvas = Cairo::Canvas.new [100, 100]
-    @obj = SpyObject.new
   end
 
   def testCanvasCannotBeCreatedWithoutSize
@@ -33,8 +33,10 @@ class TestCanvas < Test::Unit::TestCase
   end
 
   def testCanvasDrawsObjectsWhenPassed
+    @obj = mock
+    @obj.expects(:draw_to).once
+
     @canvas.draw @obj, [0,0]
-    assert @obj.draw_to_called
   end
 
 end
